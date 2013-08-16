@@ -187,7 +187,7 @@ sub handle_response {
       }
     }
     # else, bad request
-    $svc->run_hook('mogile_pre_notfound', $c);
+    $svc->run_hook('mogile_pre_notfound', $ctx);
     return $c->send_response(404);
   }
 
@@ -202,7 +202,7 @@ sub handle_response {
   $res->header('X-Reproxy-URL',join(' ',@paths));
   $res->header('Server', 'Perlbal');
 
-  $svc->run_hook('mogile_pre_xfer_resp', $c);
+  $svc->run_hook('mogile_pre_xfer_resp', $ctx);
 
   $c->setup_keepalive($res);
 

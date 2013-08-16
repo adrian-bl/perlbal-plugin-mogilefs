@@ -19,13 +19,11 @@ sub url_to_key {
   my $uri = shift;
   # don't copy url past ?foo
   my ($core_uri) = $uri =~ /(.*?)(?:\?|$)/;
-  # This is specific to our needs at fab40
-  if($core_uri =~ /\/thumbx[0-9]+\//) {
-    my ($type,$id,$size,$pic) = $core_uri =~ /\/(.*)\/([0-9]+)\/thumbx([0-9]+)\/(.*)/;
-    return "$type:$id:$pic:$size";
-  } else {
-    return join(':',split(/\//,substr($core_uri,1))); 
+
+  if($core_uri !~ /^\//) {
+    $core_uri = "/invalid_request.html";
   }
+  return ":WEBROOT:$core_uri";
 }
 
 sub mogilefs_config {
